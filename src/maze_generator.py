@@ -157,12 +157,6 @@ class MazeGenerator:
                     return
 
     def add_enemies(self, count: int):
-        """
-        Add enemy spawn points to the maze.
-
-        Args:
-            count: Number of enemies to add
-        """
         path_cells = []
 
         # Find all path cells (excluding start and exit)

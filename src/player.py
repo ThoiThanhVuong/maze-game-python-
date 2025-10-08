@@ -5,7 +5,7 @@ from src.untils.constants import (
     PLAYER_SPEED, PLAYER_MAX_HEALTH, PLAYER_SIZE,
     TILE_SIZE, CELL_WALL, SKINS
 )
-
+from src.untils.sound_manager import SoundManager
 
 class Player:
     def __init__(
@@ -45,6 +45,7 @@ class Player:
         # ======= Di chuyển =======
         self.velocity_x = 0
         self.velocity_y = 0
+        self.sound = SoundManager()
 
         # ======= Thời gian miễn thương =======
         self.damage_cooldown = 0
@@ -117,6 +118,7 @@ class Player:
 
         # Di chuyển chéo chậm lại cho mượt
         if self.velocity_x != 0 and self.velocity_y != 0:
+            self.sound.play("move")
             self.velocity_x *= 0.707
             self.velocity_y *= 0.707
 

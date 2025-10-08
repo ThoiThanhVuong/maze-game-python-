@@ -11,6 +11,7 @@ from src.UI.SkinSelector import SkinSelectorUI
 from src.editor import MazeEditor
 from src.untils.constants import *
 from src.untils.font_manager import get_font
+from src.untils.sound_manager import SoundManager
 
 class Game:
     """Main game controller."""
@@ -50,6 +51,8 @@ class Game:
         self.font = get_font(UI_FONT_SIZE)
         self.small_font = get_font(UI_SMALL_FONT_SIZE)
         self.large_font = get_font(UI_LARGE_FONT_SIZE)
+        # Âm thanh
+        self.sounds = SoundManager()
 
         # Form đăng nhập / đăng ký
         self.state = STATE_MENU
@@ -80,8 +83,9 @@ class Game:
         elif self.state == STATE_LEADERBOARD:
             self._handle_leaderboard_event(event)
         elif self.state == STATE_EDITOR:
-            if self.editor:
-                self.editor.handle_event(event)
+            result = self.editor.handle_event(event)
+            if result == "exit":
+                self.state = STATE_MENU
 
 
     def update(self, dt: float):
@@ -127,6 +131,7 @@ class Game:
         self.score = 0
         self.time_elapsed = 0
         self._generate_level()
+        self.sounds.play("select")
         self.state = STATE_PLAYING
 
     def _generate_level(self):
@@ -232,6 +237,7 @@ class Game:
             # Check collision with player
             if enemy.check_collision_with_player(self.player):
                 enemy.attack(self.player)
+                self.sounds.play("explosion")
 
         # Update camera to follow player
         self._update_camera()
@@ -239,12 +245,14 @@ class Game:
         # Check win condition (reached exit)
         exit_pos = self._find_cell_type(CELL_EXIT)
         if exit_pos and self.player.grid_x == exit_pos[0] and self.player.grid_y == exit_pos[1]:
+            self.sounds.play("win")
             if self.current_user:
                 self.db.update_user_progress(self.current_user['id'], self.level)
             self.state = STATE_LEVEL_COMPLETE
 
         # Check lose condition (health depleted)
         if not self.player.is_alive():
+            self.sounds.play("game_over")
             self._save_score()
             self.state = STATE_GAME_OVER
 
@@ -346,6 +354,7 @@ class Game:
     def _handle_menu_event(self, event: pygame.event.Event):
         """Handle menu events."""
         if event.type == pygame.KEYDOWN:
+            self.sounds.play("select")
             # 1. Continue hoặc Start Game
             if event.key == pygame.K_1:
                 if self.current_user:
@@ -415,6 +424,7 @@ class Game:
         self.input_password.handle_event(event)
 
         if event.type == pygame.KEYDOWN:
+            self.sounds.play("select")
             if event.key == pygame.K_RETURN:
                 username = self.input_username.text.strip()
                 password = self.input_password.text.strip()
@@ -474,6 +484,7 @@ class Game:
         self.input_password.handle_event(event)
 
         if event.type == pygame.KEYDOWN:
+            self.sounds.play("select")
             if event.key == pygame.K_RETURN:
                 username = self.input_username.text.strip()
                 password = self.input_password.text.strip()
@@ -509,12 +520,14 @@ class Game:
     def _handle_playing_event(self, event: pygame.event.Event):
         """Handle playing state events."""
         if event.type == pygame.KEYDOWN:
+            self.sounds.play("select")
             if event.key == pygame.K_ESCAPE or event.key == pygame.K_p:
                 self.state = STATE_PAUSED
 
     def _handle_paused_event(self, event: pygame.event.Event):
         """Handle paused state events."""
         if event.type == pygame.KEYDOWN:
+            self.sounds.play("select")
             if event.key == pygame.K_ESCAPE or event.key == pygame.K_p:
                 self.state = STATE_PLAYING
             elif event.key == pygame.K_q:
@@ -523,6 +536,7 @@ class Game:
     def _handle_game_over_event(self, event: pygame.event.Event):
         """Handle game over events."""
         if event.type == pygame.KEYDOWN:
+            self.sounds.play("select")
             if event.key == pygame.K_r:
                 self.start_new_game()
             elif event.key == pygame.K_ESCAPE or event.key == pygame.K_q:
@@ -531,12 +545,14 @@ class Game:
     def _handle_level_complete_event(self, event: pygame.event.Event):
         """Handle level complete events."""
         if event.type == pygame.KEYDOWN:
+            self.sounds.play("select")
             if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                 self.next_level()
 
     def _handle_leaderboard_event(self, event: pygame.event.Event):
         """Handle leaderboard events."""
         if event.type == pygame.KEYDOWN:
+            self.sounds.play("select")
             if event.key == pygame.K_ESCAPE:
                 self.state = STATE_MENU
 

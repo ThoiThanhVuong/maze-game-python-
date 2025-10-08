@@ -10,7 +10,7 @@ class MazeEditor:
         self.screen = screen
         self.db = db
         self.user = user
-
+        self.state = STATE_MENU
         # Editor state
         self.grid_width = 21
         self.grid_height = 21
@@ -46,12 +46,7 @@ class MazeEditor:
             self.grid[self.grid_height - 1][x] = EDITOR_TILE_WALL
 
     def handle_event(self, event: pygame.event.Event):
-        """
-        Handle input events.
 
-        Args:
-            event: Pygame event
-        """
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:  # Left click
                 self.is_drawing = True
@@ -84,6 +79,8 @@ class MazeEditor:
                 self._save_maze()
             elif event.key == pygame.K_l:
                 self._load_maze()
+            elif event.key == pygame.K_ESCAPE:
+                return "exit"
 
     def _paint_cell(self, mouse_pos: tuple):
         """Paint a cell at mouse position."""
@@ -217,17 +214,17 @@ class MazeEditor:
 
         # Tool selection
         tools = [
-            (1, "Wall", GRAY),
-            (2, "Path", WHITE),
-            (3, "Start", BLUE),
-            (4, "Exit", GREEN),
-            (5, "Enemy", RED)
+            (EDITOR_TILE_WALL, "Wall", GRAY),
+            (EDITOR_TILE_EMPTY, "Path", WHITE),
+            (EDITOR_TILE_START, "Start", BLUE),
+            (EDITOR_TILE_EXIT, "Exit", GREEN),
+            (EDITOR_TILE_ENEMY, "Enemy", RED)
         ]
 
         y = 60
-        for key, name, color in tools:
-            prefix = ">> " if self.current_tool == key - 1 else "   "
-            text = self.small_font.render(f"{prefix}{key}. {name}", True, color)
+        for i, (tile_type, name, color) in enumerate(tools, start=1):
+            prefix = ">> " if self.current_tool == tile_type else "   "
+            text = self.small_font.render(f"{prefix}{i}. {name}", True, color)
             self.screen.blit(text, (20, y))
             y += 25
 

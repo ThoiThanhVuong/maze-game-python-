@@ -74,7 +74,7 @@ STATE_LEVEL_COMPLETE = "level_complete"
 STATE_LEADERBOARD = "leaderboard"
 STATE_EDITOR = "editor"
 STATE_SKIN_SELECT = "skin_select"
-
+STATE_LOGIN_MENU = "login_menu"
 # Character skins
 SKINS = [
     {"id": 1, "name": "Blue Hero", "color": BLUE},

@@ -10,25 +10,12 @@ class MazeGenerator:
     """Generates random mazes using DFS or Prim's algorithm."""
 
     def __init__(self, width: int, height: int):
-        """
-        Initialize maze generator.
-
-        Args:
-            width: Maze width (must be odd)
-            height: Maze height (must be odd)
-        """
         # Ensure dimensions are odd
         self.width = width if width % 2 == 1 else width + 1
         self.height = height if height % 2 == 1 else height + 1
         self.maze = [[CELL_WALL for _ in range(self.width)] for _ in range(self.height)]
 
     def generate_dfs(self) -> List[List[int]]:
-        """
-        Generate maze using Depth-First Search (DFS) algorithm.
-
-        Returns:
-            2D list representing the maze
-        """
         # Start from position (1, 1)
         start_x, start_y = 1, 1
         self.maze[start_y][start_x] = CELL_PATH

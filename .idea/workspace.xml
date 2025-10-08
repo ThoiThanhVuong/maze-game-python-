@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="288d988f-23cc-46b7-b3cb-2f5ea9d1495b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/MazeGame.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/maze_game.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/untils/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/untils/constants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +51,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.SkinSelector.executor": "Run",
     "Python.constants.executor": "Run",
     "Python.database.executor": "Run",
+    "Python.font_manager.executor": "Run",
     "Python.game.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -78,7 +85,6 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-PY-252.25557.178" />
         <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
       </set>
     </attachedChunks>
@@ -91,7 +97,8 @@
       <option name="presentableId" value="Default" />
       <updated>1759583837325</updated>
       <workItem from="1759583838355" duration="3361000" />
-      <workItem from="1759590011052" duration="964000" />
+      <workItem from="1759590011052" duration="1260000" />
+      <workItem from="1759755428846" duration="9000" />
     </task>
     <servers />
   </component>
@@ -100,6 +107,17 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.db" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MazeGame$game.coverage" NAME="game Coverage Results" MODIFIED="1759590775447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />

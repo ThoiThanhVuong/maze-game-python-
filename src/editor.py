@@ -1,8 +1,3 @@
-"""
-Maze Editor
-===========
-Allows players to create and save custom mazes.
-"""
 
 import pygame
 from src.untils.constants import *
@@ -10,17 +5,8 @@ from src.database import DatabaseManager
 
 
 class MazeEditor:
-    """Maze editor for creating custom mazes."""
 
     def __init__(self, screen: pygame.Surface, db: DatabaseManager, user: dict):
-        """
-        Initialize maze editor.
-
-        Args:
-            screen: Pygame display surface
-            db: Database manager
-            user: Current user data
-        """
         self.screen = screen
         self.db = db
         self.user = user
@@ -104,7 +90,7 @@ class MazeEditor:
         grid_x = (mouse_pos[0] - self.offset_x) // self.cell_size
         grid_y = (mouse_pos[1] - self.offset_y) // self.cell_size
 
-        if (0 <= grid_x < self.grid_width and 0 <= grid_y < self.grid_height):
+        if 0 <= grid_x < self.grid_width and 0 <= grid_y < self.grid_height:
             # Don't allow overwriting borders
             if (grid_x == 0 or grid_x == self.grid_width - 1 or
                     grid_y == 0 or grid_y == self.grid_height - 1):
@@ -123,7 +109,7 @@ class MazeEditor:
         grid_x = (mouse_pos[0] - self.offset_x) // self.cell_size
         grid_y = (mouse_pos[1] - self.offset_y) // self.cell_size
 
-        if (0 <= grid_x < self.grid_width and 0 <= grid_y < self.grid_height):
+        if 0 <= grid_x < self.grid_width and 0 <= grid_y < self.grid_height:
             # Don't allow erasing borders
             if (grid_x == 0 or grid_x == self.grid_width - 1 or
                     grid_y == 0 or grid_y == self.grid_height - 1):

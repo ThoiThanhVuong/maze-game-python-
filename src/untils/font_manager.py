@@ -1,16 +1,20 @@
 import pygame
 import os
+import sys
 
-# Khởi tạo font global
 pygame.font.init()
 
-# Đường dẫn tới font (tùy bạn lưu ở đâu)
-FONT_PATH = os.path.join("assets", "fonts", "BeVietnamPro-Regular.ttf")
-
-# Kích thước mặc định
 DEFAULT_FONT_SIZE = 24
 
-# Hàm lấy font
+def resource_path(relative_path):
+    """Trả về đường dẫn chính xác khi chạy bằng file .exe hoặc khi chạy bình thường"""
+    try:
+        base_path = sys._MEIPASS  # Khi chạy trong file exe (PyInstaller)
+    except Exception:
+        base_path = os.path.abspath(".")  # Khi chạy trong IDE hoặc terminal
+    return os.path.join(base_path, relative_path)
+
 def get_font(size=DEFAULT_FONT_SIZE):
     """Trả về đối tượng font pygame hỗ trợ tiếng Việt."""
-    return pygame.font.Font(FONT_PATH, size)
+    font_path = resource_path(os.path.join("assets", "fonts", "BeVietnamPro-Regular.ttf"))
+    return pygame.font.Font(font_path, size)

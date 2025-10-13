@@ -1,9 +1,20 @@
 import pygame
 import os
+import sys
+
+def resource_path(relative_path):
+    """Trả về đường dẫn chính xác khi chạy bằng file .exe hoặc khi chạy bình thường"""
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class SoundManager:
     def __init__(self, base_path="assets/sounds"):
         pygame.mixer.init()
+
+        base_path = resource_path(base_path)
         self.sounds = {
             "move": pygame.mixer.Sound(os.path.join(base_path, "Blip_sound.wav")),
             "select": pygame.mixer.Sound(os.path.join(base_path, "select-sound-user-interface.wav")),

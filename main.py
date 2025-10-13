@@ -1,3 +1,4 @@
+import os
 
 import pygame
 import sys
@@ -17,6 +18,11 @@ def main():
     # Set up the display
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption(WINDOW_TITLE)
+
+    # Set window icon
+    icon_path = os.path.join("assets", "image", "maze-game.ico")
+    if os.path.exists(icon_path):
+        pygame.display.set_icon(pygame.image.load(icon_path))
 
     # Create clock for FPS control
     clock = pygame.time.Clock()

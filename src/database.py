@@ -1,17 +1,27 @@
-
+import os
 import sqlite3
 import hashlib
 import json
+import sys
 from typing import Optional, List, Tuple
 from src.untils.constants import DB_NAME
 
+def resource_path(relative_path):
+    """Lấy đường dẫn chính xác khi chạy bằng file .exe (PyInstaller)"""
+    try:
+        base_path = sys._MEIPASS  # Thư mục tạm khi chạy exe
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class DatabaseManager:
 
 
     def __init__(self):
         """Initialize database connection and create tables if needed."""
-        self.conn = sqlite3.connect(DB_NAME)
+        db_path = resource_path(DB_NAME)
+        os.makedirs(os.path.dirname(db_path), exist_ok=True)
+        self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
         self.create_tables()
 
@@ -37,7 +47,6 @@ class DatabaseManager:
                                 user_id INTEGER NOT NULL,
                                 score INTEGER NOT NULL,                             
                                 level INTEGER NOT NULL,
-                                time_played REAL NOT NULL,
                                 completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                 FOREIGN KEY (user_id)  REFERENCES users(id)               
                             )
@@ -141,20 +150,25 @@ class DatabaseManager:
             return {"skin_type": result[0], "skin_value": result[1]}
         return {"skin_type": "preset", "skin_value": "1"}
 
-    def save_score(self, user_id: int, score: int, level: int, time_played: float):
+    def save_score(self, user_id: int, score: int, level: int):
         """Save a game score to the database."""
         self.cursor.execute(
-            'INSERT INTO scores (user_id, score, level, time_played) VALUES (?, ?, ?, ?)',
-            (user_id, score, level, time_played)
+            'INSERT INTO scores (user_id, score, level) VALUES (?, ?, ?)',
+            (user_id, score, level)
         )
         self.conn.commit()
 
     def get_leaderboard(self, limit: int = 10) -> List[Tuple]:
         self.cursor.execute('''
-                            SELECT u.username, s.score, s.level, s.time_played
+                            SELECT 
+                                u.username,
+                                MAX(s.score) AS best_score,
+                                s.level
                             FROM scores s
-                                     JOIN users u ON s.user_id = u.id
-                            ORDER BY s.score DESC, s.level DESC LIMIT ?
+                            JOIN users u ON s.user_id = u.id
+                            GROUP BY s.user_id
+                            ORDER BY best_score DESC, s.level DESC
+                            LIMIT ?
                             ''', (limit,))
         return self.cursor.fetchall()
 

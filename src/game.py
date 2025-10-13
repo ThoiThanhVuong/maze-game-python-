@@ -134,6 +134,9 @@ class Game:
         self.sounds.play("select")
         self.state = STATE_PLAYING
 
+        if self.current_user:
+            self.db.update_user_progress(self.current_user['id'],1)
+
     def _generate_level(self):
         """Generate a new level with increasing difficulty."""
         self.maze_width = min(MIN_MAZE_SIZE + (self.level - 1) * MAZE_SIZE_INCREMENT, MAX_MAZE_SIZE)
@@ -756,7 +759,7 @@ class Game:
 
         y = 150
         if leaderboard:
-            for i, (username, score, level, time_played) in enumerate(leaderboard):
+            for i, (username, score, level) in enumerate(leaderboard):
                 rank_text = f"{i + 1}. {username} - Score: {score} - Level: {level}"
                 text = self.font.render(rank_text, True, WHITE if i > 0 else YELLOW)
                 self.screen.blit(text, (SCREEN_WIDTH // 2 - text.get_width() // 2, y))

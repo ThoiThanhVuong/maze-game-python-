@@ -284,8 +284,7 @@ class Game:
             self.db.save_score(
                 self.current_user['id'],
                 self.score,
-                self.level,
-                self.time_elapsed
+                self.level
             )
 
     def _render_login(self):
